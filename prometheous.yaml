@@ -1,0 +1,19 @@
+apiVersion: monitoring.azure.com/v1
+kind: ManagedPrometheus
+metadata:
+  name: azure-managed-prometheus
+  namespace: monitoring  # Ensure this namespace exists
+spec:
+  serviceAccountName: azure-managed-prometheus  # Ensure this service account exists
+  replicas: 1  # Number of replicas
+  remoteWrite:
+    - url: 'https://<your-remote-write-url>'  # Replace with your remote write URL
+      authorization:
+        type: Bearer
+        token: <your-token>  # Replace with your token
+  scrapeInterval: 30s  # Scrape interval
+  scrapeTimeout: 10s  # Scrape timeout
+  resources:
+    requests:
+      cpu: 200m  # CPU request
+      memory: 256Mi  # Memory request
